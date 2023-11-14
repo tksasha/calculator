@@ -10,7 +10,7 @@ import (
 func Calculate(formula string) (result int, err error) {
 	formula =
 		regexp.
-			MustCompile("[^0-9+-/*]").
+			MustCompile("[^0-9+-/*()]").
 			ReplaceAllString(formula, "")
 
 	fset := token.NewFileSet()
