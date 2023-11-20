@@ -7,7 +7,7 @@ import (
 	"strconv"
 )
 
-func Calculate(formula string) (result int, err error) {
+func Calculate(formula string) (result float64, err error) {
 	formula =
 		regexp.
 			MustCompile("[^0-9+-/*()]").
@@ -25,7 +25,7 @@ func Calculate(formula string) (result int, err error) {
 		return 0, err
 	}
 
-	result, err = strconv.Atoi(res.Value.String())
+	result, err = strconv.ParseFloat(res.Value.String(), 64)
 
 	return
 }

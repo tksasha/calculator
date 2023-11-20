@@ -4,6 +4,8 @@ import (
 	"testing"
 )
 
+const M = "\033[31m`%v` was expected, but it is `%v`\033[0m"
+
 func TestCalculateFormula(t *testing.T) {
 	t.Run("when it is valid", func(t *testing.T) {
 		result, _ := Calculate("2+2")
@@ -74,6 +76,16 @@ func TestCalculateFormula(t *testing.T) {
 
 		if result != 32 {
 			t.Errorf(`Calculate((5 + 3) * 4) != 32`)
+		}
+	})
+
+	t.Run("when calculated result is float64", func(t *testing.T) {
+		exp := 111.11
+
+		res, _ := Calculate("42.1 + 69.01")
+
+		if exp != res {
+			t.Errorf(M, exp, res)
 		}
 	})
 }
