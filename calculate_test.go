@@ -8,74 +8,92 @@ const M = "\033[31m`%v` was expected, but it is `%v`\033[0m"
 
 func TestCalculateFormula(t *testing.T) {
 	t.Run("when it is valid", func(t *testing.T) {
-		result, _ := Calculate("2+2")
+		exp := 4.0
 
-		if result != 4 {
-			t.Errorf(`Calculate("2+2") != 4`)
+		res, _ := Calculate("2+2")
+
+		if exp != res {
+			t.Errorf(M, exp, res)
 		}
 	})
 
 	t.Run("when it contains spaces", func(t *testing.T) {
-		result, _ := Calculate(" 2 + 2 ")
+		exp := 4.0
 
-		if result != 4 {
-			t.Errorf(`Calculate("2+2") != 4`)
+		res, _ := Calculate(" 2 + 2 ")
+
+		if exp != res {
+			t.Errorf(M, exp, res)
 		}
 	})
 
 	t.Run("when it contains letters", func(t *testing.T) {
-		result, _ := Calculate("a2b+c2d")
+		exp := 4.0
 
-		if result != 4 {
-			t.Errorf(`Calculate("2+2") != 4`)
+		res, _ := Calculate("a2b+c2d")
+
+		if exp != res {
+			t.Errorf(M, exp, res)
 		}
 	})
 
 	t.Run("when it is an addition", func(t *testing.T) {
-		result, _ := Calculate("3+4")
+		exp := 7.0
 
-		if result != 7 {
-			t.Errorf(`Calculate(3+4) != 7`)
+		res, _ := Calculate("3+4")
+
+		if exp != res {
+			t.Errorf(M, exp, res)
 		}
 	})
 
 	t.Run("when it is a substraction", func(t *testing.T) {
-		result, _ := Calculate("8-6")
+		exp := 2.0
 
-		if result != 2 {
-			t.Errorf(`Calculate(8-6) != 2`)
+		res, _ := Calculate("8-6")
+
+		if exp != res {
+			t.Errorf(M, exp, res)
 		}
 	})
 
 	t.Run("when it is a multiplication", func(t *testing.T) {
-		result, _ := Calculate("4*5")
+		exp := 20.0
 
-		if result != 20 {
-			t.Errorf(`Calculate(4*5) != 20`)
+		res, _ := Calculate("4*5")
+
+		if exp != res {
+			t.Errorf(M, exp, res)
 		}
 	})
 
 	t.Run("when it is a division", func(t *testing.T) {
-		result, _ := Calculate("9/3")
+		exp := 3.0
 
-		if result != 3 {
-			t.Errorf(`Calculate(9/3) != 3`)
+		res, _ := Calculate("9/3")
+
+		if exp != res {
+			t.Errorf(M, exp, res)
 		}
 	})
 
 	t.Run("when it is empty", func(t *testing.T) {
-		result, _ := Calculate("")
+		exp := 0.0
 
-		if result != 0 {
-			t.Errorf(`Calculate("") != 0`)
+		res, _ := Calculate("")
+
+		if exp != res {
+			t.Errorf(M, exp, res)
 		}
 	})
 
 	t.Run("when it contains brackets", func(t *testing.T) {
-		result, _ := Calculate("(5 + 3) * 4")
+		exp := 32.0
 
-		if result != 32 {
-			t.Errorf(`Calculate((5 + 3) * 4) != 32`)
+		res, _ := Calculate("(5 + 3) * 4")
+
+		if exp != res {
+			t.Errorf(M, exp, res)
 		}
 	})
 
