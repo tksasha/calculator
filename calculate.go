@@ -1,4 +1,4 @@
-package formula
+package calculator
 
 import (
 	"go/token"

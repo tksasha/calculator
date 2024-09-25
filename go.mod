@@ -1,4 +1,4 @@
-module github.com/tksasha/formula
+module github.com/tksasha/calculator
 
 go 1.23
 
