@@ -1,6 +1,6 @@
 module github.com/tksasha/formula
 
-go 1.22
+go 1.23
 
 require gotest.tools/v3 v3.5.1
 
