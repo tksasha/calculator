@@ -1,10 +1,10 @@
 package calculator
 
 import (
-	"go/token"
-	"go/types"
+	"math"
 	"regexp"
-	"strconv"
+
+	"github.com/mrxrsd/gojacego"
 )
 
 func Calculate(formula string) (float64, error) {
@@ -12,16 +12,15 @@ func Calculate(formula string) (float64, error) {
 		MustCompile("[^0-9+-/*()]").
 		ReplaceAllString(formula, "")
 
-	fset := token.NewFileSet()
-
-	var pos token.Pos
-
-	pkg := types.NewPackage("", "")
-
-	res, err := types.Eval(fset, pkg, pos, formula)
+	engine, err := gojacego.NewCalculationEngine()
 	if err != nil {
 		return 0, err
 	}
 
-	return strconv.ParseFloat(res.Value.String(), 64)
+	result, err := engine.Calculate(formula, nil)
+	if err != nil {
+		return 0, err
+	}
+
+	return math.Round(result*100) / 100, nil
 }

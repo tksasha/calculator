@@ -67,4 +67,10 @@ func TestCalculateFormula(t *testing.T) {
 
 		assert.Equal(t, res, 111.11)
 	})
+
+	t.Run("when try to calculate 4269.69+6942.69 it should return 11212.11", func(t *testing.T) {
+		res, _ := calculator.Calculate("4269.42+6942.69")
+
+		assert.Equal(t, res, 11_212.11)
+	})
 }
