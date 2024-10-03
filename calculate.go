@@ -8,6 +8,10 @@ import (
 )
 
 func Calculate(formula string) (float64, error) {
+	if formula == "" {
+		return 0, NewFormulaRequiredError()
+	}
+
 	formula = regexp.
 		MustCompile("[^0-9+-/*()]").
 		ReplaceAllString(formula, "")
@@ -22,5 +26,9 @@ func Calculate(formula string) (float64, error) {
 		return 0, err
 	}
 
-	return math.Round(result*100) / 100, nil
+	if result == math.Inf(1) || result == math.Inf(-1) {
+		return 0, NewInfinityError()
+	}
+
+	return math.Round(result*100) / 100, nil //nolint:mnd
 }
