@@ -1,6 +1,4 @@
-GO=/opt/homebrew/bin/go
-LINTER=github.com/golangci/golangci-lint/cmd/golangci-lint@latest
-FORMATTER=mvdan.cc/gofumpt@latest
+MODULE=github.com/tksasha/calculator
 
 .PHONY: default
 default: vet fix fmt lint test
@@ -8,24 +6,31 @@ default: vet fix fmt lint test
 .PHONY: vet
 vet:
 	@echo "go vet"
-	@$(GO) vet ./...
+	@go vet ./...
 
 .PHONY: fix
 fix:
 	@echo "go fix"
-	@$(GO) fix ./...
+	@go fix ./...
 
 .PHONY: fmt
 fmt:
 	@echo "go fmt"
-	@$(GO) run $(FORMATTER) -l -w .
+	@go tool -modfile go.tool.mod gofumpt -l -w .
 
 .PHONY: lint
 lint:
 	@echo "go lint"
-	@$(GO) run $(LINTER) run
+	@go tool -modfile go.tool.mod golangci-lint run
 
 .PHONY: test
 test:
 	@echo "go test"
-	@$(GO) test ./...
+	@go test ./...
+
+.PHONY: prepare
+prepare:
+	@if [ ! -f go.mod ]; then go mod init $(MODULE); go mod tidy; fi
+	@if [ ! -f go.tool.mod ]; then go mod init -modfile go.tool.mod $(MODULE); go mod tidy -modfile go.tool.mod; fi
+	go get -tool -modfile go.tool.mod github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+	go get -tool -modfile go.tool.mod mvdan.cc/gofumpt@latest

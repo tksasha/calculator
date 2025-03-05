@@ -7,6 +7,8 @@ import (
 	"github.com/mrxrsd/gojacego"
 )
 
+const cents = 100
+
 func Calculate(formula string) (float64, error) {
 	if formula == "" {
 		return 0, NewFormulaRequiredError()
@@ -30,5 +32,5 @@ func Calculate(formula string) (float64, error) {
 		return 0, NewInfinityError()
 	}
 
-	return math.Round(result*100) / 100, nil //nolint:mnd
+	return math.Round(result*cents) / cents, nil
 }

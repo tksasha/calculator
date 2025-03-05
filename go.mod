@@ -1,6 +1,6 @@
 module github.com/tksasha/calculator
 
-go 1.23
+go 1.24
 
 require (
 	github.com/mrxrsd/gojacego v1.0.0
