@@ -5,11 +5,14 @@ import (
 	"regexp"
 
 	"github.com/mrxrsd/gojacego"
+	"github.com/shopspring/decimal"
 )
 
-func Calculate(formula string) (float64, error) {
+const ROUND = 2
+
+func Calculate(formula string) (decimal.Decimal, error) {
 	if formula == "" {
-		return 0, NewFormulaRequiredError()
+		return decimal.NewFromInt(0), NewFormulaRequiredError()
 	}
 
 	formula = regexp.
@@ -18,17 +21,17 @@ func Calculate(formula string) (float64, error) {
 
 	engine, err := gojacego.NewCalculationEngine()
 	if err != nil {
-		return 0, err
+		return decimal.NewFromInt(0), err
 	}
 
 	result, err := engine.Calculate(formula, nil)
 	if err != nil {
-		return 0, err
+		return decimal.NewFromInt(0), err
 	}
 
 	if result == math.Inf(1) || result == math.Inf(-1) {
-		return 0, NewInfinityError()
+		return decimal.NewFromInt(0), NewInfinityError()
 	}
 
-	return math.Round(result*100) / 100, nil //nolint:mnd
+	return decimal.NewFromFloat(result).Round(ROUND), nil
 }
